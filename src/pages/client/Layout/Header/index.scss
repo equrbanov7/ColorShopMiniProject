@@ -1,0 +1,89 @@
+.Header {
+  width: 100%;
+  background: #ffffff;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.15);
+  position: fixed;
+  z-index: 5;
+  .HeaderContainer {
+    width: 100%;
+    max-width: 1140px;
+    padding: 20px;
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .HeaderLogo {
+    display: flex;
+    align-items: center;
+
+    a {
+      font-size: 24px;
+      color: #1e1e27;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .SecondLogoSide {
+      a {
+        color: #fe4c50;
+      }
+    }
+  }
+
+  .HeaderNavbarAndAuth {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    .HeaderNavbar {
+      .HeaderNavbarAllLi {
+        display: flex;
+        align-items: center;
+        a {
+          display: block;
+          color: #1e1e27;
+          font-size: 13px;
+          font-weight: 500;
+          text-transform: uppercase;
+          padding: 20px;
+          -webkit-transition: color 0.3s ease;
+          -moz-transition: color 0.3s ease;
+          -ms-transition: color 0.3s ease;
+          -o-transition: color 0.3s ease;
+          transition: color 0.3s ease;
+        }
+      }
+    }
+
+    .HeaderAuth {
+      .HeaderAuthAllLi {
+        display: flex;
+        align-items: center;
+
+        li {
+          a {
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            width: 40px;
+            height: 40px;
+            color: #1e1e27;
+            -webkit-transition: color 0.3s ease;
+            -moz-transition: color 0.3s ease;
+            -ms-transition: color 0.3s ease;
+            -o-transition: color 0.3s ease;
+            transition: color 0.3s ease;
+          }
+        }
+      }
+    }
+  }
+}
