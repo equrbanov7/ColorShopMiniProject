@@ -163,7 +163,7 @@ const NewArrival = () => {
                     style={{ width: 240 }}
                     cover={<img alt={product.title} src={product.image} />}
                     title={product.title}
-                    description={`$${product.price}`}
+                    price={`$${product.price}`}
                   />
                 ))}
               </TabPanel>
