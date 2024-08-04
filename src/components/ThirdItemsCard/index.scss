@@ -1,0 +1,40 @@
+.ThirdItemsCard {
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  background: #f3f3f3;
+  width: 25%;
+  height: 110px;
+}
+
+.ThirdItemsCardInner {
+  display: flex;
+  align-items: center;
+  background: #f3f3f3;
+  padding-left: 25px;
+}
+
+.ThirdItemsCardIcon {
+  padding-right: 24px;
+  color: #333;
+  svg {
+    font-size: 30px;
+    color: #fe4c50;
+  }
+}
+
+.ThirdItemsCardContent h6 {
+  color: #282828;
+  font-size: 14px;
+  text-transform: uppercase;
+  line-height: 18px;
+  font-weight: 600;
+  margin-bottom: 0px;
+}
+
+.ThirdItemsCardContent p {
+  font-size: 12px;
+  line-height: 18px;
+  margin-bottom: 0px;
+  color: #51545f;
+}

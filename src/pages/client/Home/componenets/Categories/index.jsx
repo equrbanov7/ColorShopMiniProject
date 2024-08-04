@@ -1,34 +1,25 @@
-import { useEffect, useState } from "react";
-// import CustomCard from "../../../../../components/Card";
-import { getCategories } from "../../../../../api/categories";
+import { useEffect, useMemo } from "react";
 import CardImage from "../../../../../components/Card-Image";
+import { useDispatch, useSelector } from "react-redux";
+import { getCategoriesRedux } from "../../../../../redux/actions/categoryAction";
 
 import "./index.scss";
 
 const Categories = () => {
-  const [categories, setCategories] = useState([]);
+  const dispatch = useDispatch();
+  const categories = useSelector((state) => state.categories?.categories);
+  const categoryDataFromRedux = useMemo(() => categories || [], [categories]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getCategories();
-        setCategories(data);
-      } catch (error) {
-        console.error("Error fetching customer info:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  console.log(categories);
+    dispatch(getCategoriesRedux());
+  }, [dispatch]);
 
   return (
     <div className="Categories">
       <div className="CustomnContainer">
-        {categories?.map((category) => (
+        {categoryDataFromRedux?.map((category,index) => (
           <>
-            <CardImage title={category.name} imgSrc={category.image} />
+            <CardImage key={index} title={category.name} imgSrc={category.image} />
           </>
         ))}
       </div>

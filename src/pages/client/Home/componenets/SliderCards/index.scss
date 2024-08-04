@@ -1,0 +1,67 @@
+.SwiperCards {
+  margin-top: 75px;
+  margin-bottom: 40px;
+  .CustomContainer {
+    max-width: 1140px;
+    margin: auto;
+
+    .SwiperCardssectionHeader {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 32px;
+      gap: 32px;
+      h2 {
+        color: #282828;
+        -webkit-font-smoothing: antialiased;
+        -webkit-text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
+        text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
+        font-size: 40px;
+      }
+
+      .line {
+        width: 60px;
+        height: 5px;
+        background: #fe4c50;
+      }
+    }
+  }
+}
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  //   height: 250px;
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  //   border: 1px solid;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.swiper-pagination {
+  display: none;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  width: 30px;
+  height: 70px;
+  background: #d3d3d6;
+  color: #fff;
+  &::after {
+    font-size: larger;
+    font-weight: 600;
+  }
+}

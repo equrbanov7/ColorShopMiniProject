@@ -1,0 +1,77 @@
+.Subscribe {
+  width: 100%;
+  background: #f2f2f2;
+  margin-top: 81px;
+
+  .CustomContainer {
+    max-width: 1140px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 120px;
+    .SubsCribeInfo {
+      .SubsCribeInfoContainer {
+        h4 {
+          margin-bottom: 0px;
+          line-height: 24px;
+          font-weight: 600;
+          color: #282828;
+          font-size: 24px;
+        }
+        p {
+          margin-bottom: 0px;
+          line-height: 1.7;
+          color: #51545f;
+          font-size: 14px;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .inputContainer {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .SubscribeForm {
+      form {
+        .SubscribeFormContainer {
+          display: flex;
+          align-items: center;
+          input {
+            width: 300px;
+            height: 46px;
+            background: #ffffff;
+            border: none;
+            padding-left: 20px;
+            &:focus {
+              outline: #fe4c50;
+            }
+          }
+          button {
+            width: 160px;
+            height: 46px;
+            border: none;
+            background: #fe4c50;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            cursor: pointer;
+          }
+        }
+      }
+
+      .error-message {
+        color: red;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+        position: absolute;
+        bottom: -17px;
+      }
+    }
+  }
+}

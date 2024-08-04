@@ -147,6 +147,11 @@
   height: 17px;
 }
 
+
+.GeneralFavoriteIcon {
+  color: #fe4c50;
+}
+
 .CustomCardLeftTopSideInfoFavorite {
   background: initial;
   left: initial;
@@ -162,3 +167,9 @@
     }
   }
 }
+
+.GeneralFavoriteBorderIcon:hover {
+  color: #fe4c50;
+}
+
+

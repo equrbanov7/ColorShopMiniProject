@@ -1,8 +1,5 @@
-import { useState, useEffect } from "react";
-import {
-  getProducts,
-  getProductsByCategoryId,
-} from "../../../../../api/product";
+import { useState, useEffect, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import SwipeableViews from "react-swipeable-views";
 import { useTheme } from "@mui/material/styles";
@@ -13,9 +10,8 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import CustomCard from "../../../../../components/Card/index";
 import "./index.scss";
-
-// Assuming you have a function to fetch categories
-import { getCategories } from "../../../../../api/categories";
+import { getProductsRedux } from "../../../../../redux/actions/productAction";
+import { getCategoriesRedux } from "../../../../../redux/actions/categoryAction";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -51,67 +47,49 @@ const NewArrival = () => {
   const theme = useTheme();
   const [value, setValue] = useState(0);
   const [categoryId, setCategoryId] = useState(null);
-  const [categories, setCategories] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [allProducts, setAllProducts] = useState([]);
+  const [user, setUser] = useState(null);
+
+
+  const dispatch = useDispatch();
+
+  const allProducts = useSelector((state) => state.products?.products);
+  const categories = useSelector((state) => state.categories?.categories);
+  const allProductsFromRedux = useMemo(() => allProducts || [], [allProducts]);
+  const categoryDataFromRedux = useMemo(() => categories || [], [categories]);
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await getCategories();
-        setCategories(response);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
-    };
-
-    // Fetch categories and all products initially
-    const fetchAllProducts = async () => {
-      try {
-        const response = await getProducts();
-        setAllProducts(response);
-        setFilteredProducts(response); // Show all products initially
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
-
-    fetchCategories();
-    fetchAllProducts();
-  }, []);
+    dispatch(getCategoriesRedux());
+    dispatch(getProductsRedux());
+  }, [dispatch]);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      if (categoryId !== null) {
-        try {
-          const response = await getProductsByCategoryId(categoryId);
-          setFilteredProducts(response);
-        } catch (error) {
-          console.error("Error fetching products:", error);
-        }
-      } else {
-        setFilteredProducts(allProducts); // Show all products if no category is selected
-      }
-    };
-
-    fetchProducts();
-  }, [categoryId, allProducts]);
+    if (categoryId !== null) {
+      setFilteredProducts(
+        allProductsFromRedux.filter(
+          (product) => product.category_id === categoryId
+        )
+      );
+    } else {
+      setFilteredProducts(allProductsFromRedux);
+    }
+  }, [categoryId, allProductsFromRedux]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
     if (newValue === 0) {
-      setCategoryId(null); // Show all products when "All" tab is selected
+      setCategoryId(null);
     } else {
-      setCategoryId(categories[newValue - 1].id); // Adjust index for categories
+      setCategoryId(categoryDataFromRedux[newValue - 1]?.id);
     }
   };
 
   const handleChangeIndex = (index) => {
     setValue(index);
     if (index === 0) {
-      setCategoryId(null); // Show all products when "All" tab is selected
+      setCategoryId(null);
     } else {
-      setCategoryId(categories[index - 1].id); // Adjust index for categories
+      setCategoryId(categoryDataFromRedux[index - 1]?.id);
     }
   };
 
@@ -141,10 +119,10 @@ const NewArrival = () => {
                 aria-label="action tabs example"
               >
                 <Tab label={"All"} {...a11yProps(0)} />
-                {categories.map((category, index) => (
+                {categoryDataFromRedux.map((category, index) => (
                   <Tab
-                    key={category.id}
-                    label={category.name}
+                    key={category?.id}
+                    label={category?.name}
                     {...a11yProps(index + 1)} // Adjust index for categories
                   />
                 ))}
@@ -156,36 +134,56 @@ const NewArrival = () => {
               onChangeIndex={handleChangeIndex}
             >
               <TabPanel value={value} index={0} dir={theme.direction}>
-                {filteredProducts.map((product) => (
-                  <CustomCard
-                    key={product.id}
-                    hoverable
-                    style={{ width: 240 }}
-                    cover={<img alt={product.title} src={product.image} />}
-                    title={product.title}
-                    price={`$${product.price}`}
-                  />
-                ))}
+                {filteredProducts.map((product) => {
+                  let showLeftTop = product.status === "New";
+                  showLeftTop = Boolean(product.discount > 0);
+                  return (
+                    <CustomCard
+                      key={product.id+"88"}
+                      hoverable
+                      style={{ width: 240 }}
+                      cover={<img alt={product.title} src={product.image} />}
+                      title={product.title}
+                      price={product.price}
+                      discount={product.discount}
+                      showLeftTop={showLeftTop}
+                      productId={product.id}
+                      user={user}
+                      setUser={setUser}
+                    />
+                  );
+                })}
               </TabPanel>
-              {categories.map((category, index) => (
+              {categoryDataFromRedux.map((category, index) => (
                 <TabPanel
-                  key={category.id}
+                  key={index}
                   value={value}
-                  index={index + 1} // Adjust index for categories
+                  index={index + 1}
                   dir={theme.direction}
                 >
                   {filteredProducts
                     .filter((product) => product.category_id === category.id)
-                    .map((product) => (
-                      <CustomCard
-                        key={product.id}
-                        hoverable
-                        style={{ width: 240 }}
-                        cover={<img alt={product.title} src={product.image} />}
-                        title={product.title}
-                        description={`$${product.price}`}
-                      />
-                    ))}
+                    .map((product) => {
+                      let showLeftTop = product.status === "New";
+                      showLeftTop = Boolean(product.discount > 0);
+                      return (
+                        <CustomCard
+                          key={product.id+2}
+                          hoverable
+                          style={{ width: 240 }}
+                          cover={
+                            <img alt={product.title} src={product.image} />
+                          }
+                          title={product.title}
+                          price={product.price}
+                          discount={product.discount}
+                          showLeftTop={showLeftTop}
+                          productId={product.id}
+                          user={user}
+                          setUser={setUser}
+                        />
+                      );
+                    })}
                 </TabPanel>
               ))}
             </SwipeableViews>

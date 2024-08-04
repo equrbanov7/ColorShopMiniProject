@@ -1,5 +1,9 @@
 /* eslint-disable react/prop-types */
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { getUser, patchUser } from "../../api/users";
+import { useEffect } from "react";
+
 import "./index.scss";
 
 export const CustomCardTopSideInfo = ({
@@ -7,22 +11,61 @@ export const CustomCardTopSideInfo = ({
   className,
   showFavoriteRight = true,
   showFavoriteLeft = false,
+  productId,
+  user,
+  setUser,
 }) => {
+  const fetchUser = async () => {
+    const userData = await getUser(1);
+    setUser(userData);
+  };
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
+  const handleAddToFavorites = async (e) => {
+    e.stopPropagation();
+    if (user) {
+      const updatedFavorites = user.favorites.includes(productId)
+        ? user.favorites.filter((fav) => fav !== productId)
+        : [...user.favorites, productId];
+
+      const updatedUser = { favorites: updatedFavorites };
+      await patchUser(user.id, updatedUser);
+
+      await fetchUser();
+    } else {
+      alert("User not found");
+    }
+  };
+
+  const isFavorite = user?.favorites.includes(productId);
+
   return (
     <div
       className={`CustomCardLeftTopSideInfo ${className} ${
         showFavoriteRight && "CustomCardLeftTopSideInfoFavorite"
       } 
-      
-      ${showFavoriteLeft && "CustomCardLeftTopSideInfoFavoriteLeft"}
-      `}
+      ${showFavoriteLeft && "CustomCardLeftTopSideInfoFavoriteLeft"}`}
     >
       {showFavoriteLeft && (
-        <FavoriteBorderIcon className="CustomCardTopSideInfoFavoriteBorderIcon" />
+        <div onClick={handleAddToFavorites}>
+          {isFavorite ? (
+            <FavoriteIcon className="GeneralFavoriteIcon CustomCardTopSideInfoFavoriteBorderIcon" />
+          ) : (
+            <FavoriteBorderIcon className="GeneralFavoriteBorderIcon CustomCardTopSideInfoFavoriteBorderIcon" />
+          )}
+        </div>
       )}
 
       {showFavoriteRight ? (
-        <FavoriteBorderIcon className="CustomCardTopSideInfoFavoriteBorderIcon" />
+        <div onClick={handleAddToFavorites}>
+          {isFavorite ? (
+            <FavoriteIcon className="GeneralFavoriteIcon CustomCardTopSideInfoFavoriteBorderIcon" />
+          ) : (
+            <FavoriteBorderIcon className="GeneralFavoriteBorderIcon CustomCardTopSideInfoFavoriteBorderIcon" />
+          )}
+        </div>
       ) : (
         <span className="CustomCardLeftTopSideInfoText">{text}</span>
       )}
@@ -36,10 +79,50 @@ const CustomCard = ({
   cover,
   title,
   price,
+  discount = 0,
   showLeftTop = false,
-  showRightTop = false,
-  showFavorite = false,
+  showRightTop = true,
+  showFavorite = true,
+  productId,
+  user,
+  setUser,
+  showBasket = true,
 }) => {
+  const fetchUser = async () => {
+    const userData = await getUser(1);
+    setUser(userData);
+  };
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
+  const handleAddToBasket = async (e) => {
+    e.stopPropagation();
+
+    if (user) {
+      const productInBasket = user.basket.find(
+        (item) => item.productId === productId
+      );
+
+      if (productInBasket) {
+        productInBasket.count += 1;
+      } else {
+        user.basket.push({
+          productId: productId,
+          count: 1,
+        });
+      }
+
+      setUser({ ...user });
+
+      await patchUser(user.id, user);
+      await fetchUser();
+    } else {
+      alert("User not found");
+    }
+  };
+
   return (
     <div
       className={`custom-card ${hoverable ? "hoverable" : ""}`}
@@ -49,34 +132,50 @@ const CustomCard = ({
       <div className="custom-card-body">
         {title && (
           <h3 className="custom-card-title">
-            {" "}
-            {title?.length > 15 ? `${title.slice(0, 15)}...` : title}{" "}
+            {title?.length > 15 ? `${title.slice(0, 15)}...` : title}
           </h3>
         )}
         {price && (
           <p className="custom-card-price">
-            {price?.length > 15 ? `${price.slice(0, 15)}...` : price}
-            <span className="custom-card-price">{price}</span>
+            ${price?.length > 15 ? `${price.slice(0, 15)}...` : price}
+            {discount > 0 && (
+              <span className="custom-card-price">${price - discount}</span>
+            )}
           </p>
         )}
-        <button className="custom-card-button">Add Too Card </button>
+        {showBasket && (
+          <button className="custom-card-button" onClick={handleAddToBasket}>
+            Add To Cart
+          </button>
+        )}
       </div>
 
-      <CustomCardTopSideInfo
-        showFavoriteRight={false}
-        showFavoriteLeft={true}
-      />
+      {showLeftTop && (
+        <CustomCardTopSideInfo
+          text={"New"}
+          showFavoriteRight={!showLeftTop}
+          showFavoriteLeft={!showLeftTop}
+          className={`${
+            !showLeftTop &&
+            showRightTop &&
+            "CustomCardLeftTopSideInfoFavoriteLeft"
+          }`}
+          productId={productId}
+          user={user}
+          setUser={setUser}
+        />
+      )}
 
-      {/* <CustomCardTopSideInfo
-        text={"Sale"}
-        className={"CustomCardTopRightSideInfo"}
-        showFavoriteRight={true}
-      /> */}
-      <CustomCardTopSideInfo
-        text={"Sale"}
-        className={"CustomCardTopRightSideInfo"}
-        showFavoriteRight={false}
-      />
+      {showRightTop && (
+        <CustomCardTopSideInfo
+          text={"Sale"}
+          className={"CustomCardTopRightSideInfo"}
+          showFavoriteRight={showFavorite}
+          productId={productId}
+          user={user}
+          setUser={setUser}
+        />
+      )}
     </div>
   );
 };

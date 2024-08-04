@@ -1,39 +1,84 @@
 {
+  "users": [
+    {
+      "id": "1",
+      "username": "testuser1",
+      "favorites": [
+        "1",
+        "5",
+        "2"
+      ],
+      "basket": [
+        {
+          "productId": "1",
+          "count": 4
+        },
+        {
+          "productId": "3",
+          "count": 5
+        },
+        {
+          "productId": "5",
+          "count": 2
+        },
+        {
+          "productId": "2",
+          "count": 4
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "username": "testuser2",
+      "favorites": [],
+      "basket": [
+        {
+          "productId": "1",
+          "count": 1
+        },
+        {
+          "productId": "5",
+          "count": 1
+        }
+      ]
+    }
+  ],
   "products": [
     {
       "id": "1",
       "title": "Fujifilm X100T 16 MP Digital Camera (Silver)",
       "price": 520,
       "image": "https://preview.colorlib.com/theme/coloshop/images/product_1.png",
-      "category_id": "1"
+      "category_id": "1",
+      "discount": 35,
+      "status": "New"
     },
     {
       "id": "2",
       "title": "Samsung CF591 Series Curved 27-Inch FHD Monitor",
       "price": 610,
       "image": "https://preview.colorlib.com/theme/coloshop/images/product_2.png",
-      "category_id": "2"
+      "category_id": "2",
+      "discount": 0,
+      "status": ""
     },
     {
       "id": "3",
       "title": "Blue Yeti USB Microphone Blackout Edition",
       "price": 120,
       "image": "https://preview.colorlib.com/theme/coloshop/images/product_3.png",
-      "category_id": "2"
-    },
-    {
-      "id": "4",
-      "title": "DYMO LabelWriter 450 Turbo Thermal Label Printer",
-      "price": 410,
-      "image": "https://preview.colorlib.com/theme/coloshop/images/product_4.png",
-      "category_id": "3"
+      "category_id": "2",
+      "discount": 15,
+      "status": ""
     },
     {
       "id": "5",
       "title": "Pryma Headphones, Rose Gold & Grey",
       "price": 180,
       "image": "https://preview.colorlib.com/theme/coloshop/images/product_5.png",
-      "category_id": "2"
+      "category_id": "2",
+      "discount": 35,
+      "status": "New"
     }
   ],
   "categories": [
