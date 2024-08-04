@@ -113,4 +113,59 @@
       }
     }
   }
+
+  @media (max-width: 995px) {
+    .CustomContainer .DealOfTheWeekInnerContent .DealOfTheWeekImage {
+      flex: initial;
+      max-width: initial;
+    }
+    .CustomContainer .DealOfTheWeekInnerContent {
+      flex-wrap: initial;
+      flex-direction: column;
+      position: relative;
+    }
+    .CustomContainer .DealOfTheWeekInnerContent .DealOfTheWeekExpireDate {
+      position: absolute;
+      top: 100px;
+    }
+
+    .CustomContainer .DealOfTheWeekInnerContent .DealOfTheWeekImage img {
+      width: 100%;
+    }
+    .CustomContainer
+      .DealOfTheWeekInnerContent
+      .DealOfTheWeekExpireDate
+      .DealOfTheWeekExpireDateContainer
+      .DealOfTheWeekExpireDateTimer {
+      display: flex;
+      li {
+        width: 70px;
+        height: 70px;
+        .timerNumb {
+          font-size: 28px;
+        }
+        .timerDesc {
+          margin-top: 1px;
+          font-size: 14px;
+        }
+      }
+    }
+
+    .CustomContainer
+      .DealOfTheWeekInnerContent
+      .DealOfTheWeekExpireDate
+      .DealOfTheWeekExpireDateContainer
+      .DealOfTheWeekExpireDateTitle
+      h2 {
+      font-size: 24px;
+    }
+    .CustomContainer
+      .DealOfTheWeekInnerContent
+      .DealOfTheWeekExpireDate
+      .DealOfTheWeekExpireDateContainer
+      .DealOfTheWeekExpireDateBtn
+      button {
+      font-size: 12px;
+    }
+  }
 }

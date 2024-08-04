@@ -51,4 +51,20 @@
       line-height: 30px;
     }
   }
+
+  @media (max-width: 995px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .CustomContainer {
+      flex-direction: column;
+      gap: 20px;
+
+      .Links ul {
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+  }
 }

@@ -5,6 +5,7 @@ import { getUser, patchUser } from "../../api/users";
 import { useEffect } from "react";
 
 import "./index.scss";
+import { useNavigate } from "react-router-dom";
 
 export const CustomCardTopSideInfo = ({
   text,
@@ -88,6 +89,8 @@ const CustomCard = ({
   setUser,
   showBasket = true,
 }) => {
+  const navigate = useNavigate();
+
   const fetchUser = async () => {
     const userData = await getUser(1);
     setUser(userData);
@@ -123,10 +126,15 @@ const CustomCard = ({
     }
   };
 
+  const handleNavigateProductInfo = (id) => {
+    navigate(`/products/${id}`);
+  };
+
   return (
     <div
       className={`custom-card ${hoverable ? "hoverable" : ""}`}
       style={style}
+      onClick={() => handleNavigateProductInfo(productId)}
     >
       {cover && <div className="custom-card-cover">{cover}</div>}
       <div className="custom-card-body">

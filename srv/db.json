@@ -15,7 +15,7 @@
         },
         {
           "productId": "3",
-          "count": 5
+          "count": 6
         },
         {
           "productId": "5",
@@ -51,7 +51,8 @@
       "image": "https://preview.colorlib.com/theme/coloshop/images/product_1.png",
       "category_id": "1",
       "discount": 35,
-      "status": "New"
+      "status": "New",
+      "rating":3
     },
     {
       "id": "2",
@@ -60,7 +61,8 @@
       "image": "https://preview.colorlib.com/theme/coloshop/images/product_2.png",
       "category_id": "2",
       "discount": 0,
-      "status": ""
+      "status": "",
+      "rating":4
     },
     {
       "id": "3",
@@ -69,7 +71,8 @@
       "image": "https://preview.colorlib.com/theme/coloshop/images/product_3.png",
       "category_id": "2",
       "discount": 15,
-      "status": ""
+      "status": "",
+      "rating":2
     },
     {
       "id": "5",
@@ -78,7 +81,8 @@
       "image": "https://preview.colorlib.com/theme/coloshop/images/product_5.png",
       "category_id": "2",
       "discount": 35,
-      "status": "New"
+      "status": "New",
+      "rating":5
     }
   ],
   "categories": [

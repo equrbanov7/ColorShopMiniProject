@@ -4,6 +4,11 @@
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.15);
   position: fixed;
   z-index: 5;
+
+  .BurgerMenu {
+    display: none;
+  }
+
   .HeaderContainer {
     width: 100%;
     max-width: 1140px;
@@ -14,6 +19,7 @@
     align-items: center;
     justify-content: space-between;
   }
+
   .HeaderLogo {
     display: flex;
     align-items: center;
@@ -24,10 +30,9 @@
       font-weight: 700;
       text-transform: uppercase;
     }
-    .SecondLogoSide {
-      a {
-        color: #fe4c50;
-      }
+
+    .SecondLogoSide a {
+      color: #fe4c50;
     }
   }
 
@@ -41,6 +46,7 @@
       .HeaderNavbarAllLi {
         display: flex;
         align-items: center;
+
         a {
           display: block;
           color: #1e1e27;
@@ -48,10 +54,6 @@
           font-weight: 500;
           text-transform: uppercase;
           padding: 20px;
-          -webkit-transition: color 0.3s ease;
-          -moz-transition: color 0.3s ease;
-          -ms-transition: color 0.3s ease;
-          -o-transition: color 0.3s ease;
           transition: color 0.3s ease;
         }
       }
@@ -63,11 +65,9 @@
         align-items: center;
 
         li {
+          position: relative;
+
           a {
-            display: -webkit-box;
-            display: -moz-box;
-            display: -ms-flexbox;
-            display: -webkit-flex;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -76,12 +76,92 @@
             width: 40px;
             height: 40px;
             color: #1e1e27;
-            -webkit-transition: color 0.3s ease;
-            -moz-transition: color 0.3s ease;
-            -ms-transition: color 0.3s ease;
-            -o-transition: color 0.3s ease;
             transition: color 0.3s ease;
           }
+        }
+
+        .basketLiCheckOut {
+          background: #eceff6;
+          border-radius: 50%;
+        }
+
+        .basketCount {
+          position: absolute;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          top: -9px;
+          left: 22px;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          background: #fe4c50;
+          font-size: 12px;
+          color: #ffffff;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 995px) {
+    position: sticky;
+
+    .HeaderNavbar {
+      display: none;
+    }
+
+    .BurgerMenu {
+      display: initial;
+      margin-left: 20px;
+      cursor: pointer;
+    }
+  }
+
+  .Overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .ModalContent {
+    background: #fff;
+    width: 80%;
+    // max-width: 300px;
+    height: 100%;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
+    position: relative;
+    padding: 20px;
+    overflow-y: auto;
+
+    .CloseButton {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .ModalNavbar ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        margin: 15px 0;
+
+        a {
+          color: #1e1e27;
+          font-size: 18px;
+          text-decoration: none;
+          display: block;
         }
       }
     }

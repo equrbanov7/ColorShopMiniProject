@@ -7,4 +7,10 @@
     margin: auto;
     max-width: 1140px;
   }
+  @media (max-width: 995px) {
+    .CustomContainer {
+      flex-direction: column;
+      padding: 0 15px;
+    }
+  }
 }

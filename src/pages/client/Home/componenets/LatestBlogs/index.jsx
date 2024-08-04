@@ -7,6 +7,10 @@ import "./index.scss";
 const LatestBlogs = () => {
   return (
     <div className="LatestBlogs">
+      <div className="LatestBlogssectionHeader">
+          <h2>Latest Blogs</h2>
+          <div className="line"></div>
+        </div>
       <div className="CustomContainer">
         <CardImage imgSrc={Blog1} animationHover={true} />
         <CardImage imgSrc={Blog2} animationHover={true}  />

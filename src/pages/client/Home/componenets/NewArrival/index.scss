@@ -56,10 +56,9 @@
       display: none;
     }
 
-    .css-lx4kgr{
-        width: 100%;
-        min-height: initial;
-
+    .css-lx4kgr {
+      width: 100%;
+      min-height: initial;
     }
     .css-19kzrtu {
       display: flex;
@@ -69,10 +68,18 @@
       width: 100%;
       gap: 8px;
     }
-    .css-xqhexu-MuiPaper-root-MuiAppBar-root{
-        margin: auto;
-        width: 650px;
-        
+    .css-xqhexu-MuiPaper-root-MuiAppBar-root {
+      margin: auto;
+      width: 650px;
+    }
+  }
+
+  @media (max-width: 995px) {
+    .SelectedCategoryBox .css-xqhexu-MuiPaper-root-MuiAppBar-root {
+      width: 100%;
+    }
+    .css-heg063-MuiTabs-flexContainer {
+      flex-wrap: wrap;
     }
   }
 }

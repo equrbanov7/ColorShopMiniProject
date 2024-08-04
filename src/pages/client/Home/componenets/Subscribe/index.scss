@@ -74,4 +74,26 @@
       }
     }
   }
+
+  @media (max-width: 995px) {
+    .CustomContainer {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      height: 100%;
+      padding: 40px;
+
+      .SubsCribeInfo {
+        margin-bottom: 40px;
+      }
+      .SubscribeForm .SubscribeFormContainer {
+        flex-direction: column;
+        gap: 14px;
+      }
+      .SubscribeForm .error-message{
+        position: initial;
+      }
+    }
+  }
 }

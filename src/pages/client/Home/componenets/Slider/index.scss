@@ -31,4 +31,33 @@
       }
     }
   }
+
+  @media (max-width: 995px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .SliderContainer{
+      .innerContainer{
+        .sectionIfo{
+
+          .DescriptionOfSection{
+            margin-bottom: 15px;
+            font-size: 12px;
+          }
+      
+          .TitleOfSection{
+            font-size: 24px;
+      
+          }
+          .ButtonShop{
+            margin-top: 15px;
+            width: 100px;
+            height: 35px;
+            font-size: 10px;
+          }
+        }
+      }
+    }
+  }
 }

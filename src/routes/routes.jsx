@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import ClinetLayout from "../pages/client";
 import ClientHome from "../pages/client/Home";
+import ProductInfo from "../pages/client/ProductInfo";
 
 export const routes = createBrowserRouter([
     // Admin Side
@@ -36,14 +37,15 @@ export const routes = createBrowserRouter([
           index: true,
           element: <ClientHome />,
         },
+
         // {
         //   path: "products",
         //   element: <Products />,
         // },
-        // {
-        //   path: "products/:productId",
-        //   element: <ProductInfo />,
-        // },
+        {
+          path: "products/:productId",
+          element: <ProductInfo />,
+        },
        
       ],
     },

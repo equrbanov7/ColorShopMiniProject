@@ -24,14 +24,22 @@ export const getProductsRedux = createAsyncThunk(
         }
     }
 );
+export const getOneProductRedux = createAsyncThunk(
+    "product/getOneProduct",
+    async (id, {
+        rejectWithValue
+    }) => {
+        try {
+            const res = await instance.get(`/${ENUMS.products}/${id}`);
+            return res.data;
+        } catch (error) {
+            rejectWithValue(error);
+        }
+    }
+);
 
-// export const getProducts = async (
 
-// ) => {
-//     const res = await instance.get(`/${ENUMS.products}`);
-//     return res.data;
-// };
-
+  
 
 
 // export const getOneProduct = createAsyncThunk(

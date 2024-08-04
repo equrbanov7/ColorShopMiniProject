@@ -1,10 +1,37 @@
 .LatestBlogs {
   margin-top: 72px;
+
+  .LatestBlogssectionHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 32px;
+    gap: 32px;
+    h2 {
+      color: #282828;
+      -webkit-font-smoothing: antialiased;
+      -webkit-text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
+      text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
+    }
+
+    .line {
+      width: 60px;
+      height: 5px;
+      background: #fe4c50;
+    }
+  }
   .CustomContainer {
     max-width: 1140px;
     margin: auto;
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  @media (max-width: 995px) {
+    .CustomContainer {
+      flex-direction: column;
+      gap: 30px;
+    }
   }
 }

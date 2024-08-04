@@ -3,13 +3,14 @@ import {
 } from '@reduxjs/toolkit'
 
 import {
-    getProductsRedux
+    getProductsRedux,
+    getOneProductRedux
 } from '../actions/productAction';
 
 const initialState = {
     loading: false,
     products: [],
-    oneProduct: {}
+    oneProduct: {},
 }
 
 export const productSlice = createSlice({
@@ -35,7 +36,23 @@ export const productSlice = createSlice({
             console.log(action.payload)
         });
 
+        // getOneProduct
+        builder.addCase(getOneProductRedux.pending, (state) => {
+            state.loading = true
+        });
 
+        builder.addCase(getOneProductRedux.fulfilled, (state, action) => {
+            state.loading = false;
+            //Api cavab
+
+            state.oneProduct = action.payload
+            //   console.log(action.payload, "payloadd")
+        });
+        builder.addCase(getOneProductRedux.rejected, (state, action) => {
+            state.loading = false;
+            //Api cavab error
+            console.log(action.payload)
+        });
 
     }
 
