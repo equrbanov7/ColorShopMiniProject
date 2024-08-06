@@ -4,23 +4,21 @@ import SearchIcon from "@mui/icons-material/Search";
 import PersonIcon from "@mui/icons-material/Person";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import MenuIcon from "@mui/icons-material/Menu";
-import { getUser } from "../../../../api/users";
+import { useDispatch, useSelector } from "react-redux";
+import { getOneUserRedux } from "../../../../redux/actions/userActions";
+
 import "./index.scss";
 
 const Header = () => {
-  const [user, setUser] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const dispatch = useDispatch();
+  const loginedUserData = useSelector((state) => state.users);
+  const basketItemsCount = loginedUserData?.user?.basket?.length || 0;
 
-  const fetchUser = async () => {
-    const userData = await getUser(1);
-    setUser(userData);
-  };
 
   useEffect(() => {
-    fetchUser();
-  }, []);
-
-  const basketItemsCount = user?.basket?.length | 0;
+    dispatch(getOneUserRedux(1));
+  }, [dispatch]);
 
   const handleBurgerMenuClick = () => {
     setIsModalOpen(true);
@@ -66,7 +64,7 @@ const Header = () => {
                 <Link>Blog</Link>
               </li>
               <li>
-                <Link>Contact</Link>
+                <Link to={"/add"}>Add Product</Link>
               </li>
             </ul>
           </nav>
@@ -83,9 +81,7 @@ const Header = () => {
                 </Link>
               </li>
               <li>
-                <Link
-                  className={basketItemsCount > 0 ? "basketLiCheckOut" : ""}
-                >
+                <Link className={basketItemsCount > 0 ? "basketLiCheckOut" : ""}>
                   <ShoppingCartIcon />
                 </Link>
                 {basketItemsCount > 0 && (

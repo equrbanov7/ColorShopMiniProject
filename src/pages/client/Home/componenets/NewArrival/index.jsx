@@ -1,5 +1,5 @@
-import { useState, useEffect, useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import {  useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import SwipeableViews from "react-swipeable-views";
 import { useTheme } from "@mui/material/styles";
@@ -10,8 +10,9 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import CustomCard from "../../../../../components/Card/index";
 import "./index.scss";
-import { getProductsRedux } from "../../../../../redux/actions/productAction";
-import { getCategoriesRedux } from "../../../../../redux/actions/categoryAction";
+ import { getProductsRedux } from "../../../../../redux/actions/productAction";
+ import { getCategoriesRedux } from "../../../../../redux/actions/categoryAction";
+import { getOneUserRedux } from "../../../../../redux/actions/userActions";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -55,32 +56,33 @@ const NewArrival = () => {
 
   const allProducts = useSelector((state) => state.products?.products);
   const categories = useSelector((state) => state.categories?.categories);
-  const allProductsFromRedux = useMemo(() => allProducts || [], [allProducts]);
-  const categoryDataFromRedux = useMemo(() => categories || [], [categories]);
-
+  const { user: fetchedUser } = useSelector((state) => state.users);
+  const basket = fetchedUser?.basket;
+  
   useEffect(() => {
     dispatch(getCategoriesRedux());
     dispatch(getProductsRedux());
+    dispatch(getOneUserRedux(1));
   }, [dispatch]);
-
+  
   useEffect(() => {
     if (categoryId !== null) {
       setFilteredProducts(
-        allProductsFromRedux.filter(
+        allProducts.filter(
           (product) => product.category_id === categoryId
         )
       );
     } else {
-      setFilteredProducts(allProductsFromRedux);
+      setFilteredProducts(allProducts);
     }
-  }, [categoryId, allProductsFromRedux]);
+  }, [categoryId, allProducts]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
     if (newValue === 0) {
       setCategoryId(null);
     } else {
-      setCategoryId(categoryDataFromRedux[newValue - 1]?.id);
+      setCategoryId(categories[newValue - 1]?.id);
     }
   };
 
@@ -89,7 +91,7 @@ const NewArrival = () => {
     if (index === 0) {
       setCategoryId(null);
     } else {
-      setCategoryId(categoryDataFromRedux[index - 1]?.id);
+      setCategoryId(categories[index - 1]?.id);
     }
   };
 
@@ -119,7 +121,7 @@ const NewArrival = () => {
                 aria-label="action tabs example"
               >
                 <Tab label={"All"} {...a11yProps(0)} />
-                {categoryDataFromRedux.map((category, index) => (
+                {categories.map((category, index) => (
                   <Tab
                     key={category?.id}
                     label={category?.name}
@@ -150,11 +152,13 @@ const NewArrival = () => {
                       productId={product.id}
                       user={user}
                       setUser={setUser}
+                      loginedUserData={fetchedUser}
+                      basket={basket}
                     />
                   );
                 })}
               </TabPanel>
-              {categoryDataFromRedux.map((category, index) => (
+              {categories.map((category, index) => (
                 <TabPanel
                   key={index}
                   value={value}
@@ -181,6 +185,7 @@ const NewArrival = () => {
                           productId={product.id}
                           user={user}
                           setUser={setUser}
+                          loginedUserData={fetchedUser}
                         />
                       );
                     })}

@@ -4,25 +4,24 @@
       "id": "1",
       "username": "testuser1",
       "favorites": [
-        "1",
         "5",
         "2"
       ],
       "basket": [
         {
           "productId": "1",
-          "count": 4
-        },
-        {
-          "productId": "3",
-          "count": 6
-        },
-        {
-          "productId": "5",
-          "count": 2
+          "count": 10
         },
         {
           "productId": "2",
+          "count": 6
+        },
+        {
+          "productId": "3",
+          "count": 3
+        },
+        {
+          "productId": "5",
           "count": 4
         }
       ]
@@ -52,7 +51,7 @@
       "category_id": "1",
       "discount": 35,
       "status": "New",
-      "rating":3
+      "rating": 3
     },
     {
       "id": "2",
@@ -62,7 +61,7 @@
       "category_id": "2",
       "discount": 0,
       "status": "",
-      "rating":4
+      "rating": 4
     },
     {
       "id": "3",
@@ -72,7 +71,7 @@
       "category_id": "2",
       "discount": 15,
       "status": "",
-      "rating":2
+      "rating": 2
     },
     {
       "id": "5",
@@ -82,7 +81,47 @@
       "category_id": "2",
       "discount": 35,
       "status": "New",
-      "rating":5
+      "rating": 5
+    },
+    {
+      "id": "ef43",
+      "title": "NewProduct",
+      "price": "139",
+      "image": "https://preview.colorlib.com/theme/coloshop/images/product_1.png",
+      "category_id": "1",
+      "discount": "10",
+      "status": "New",
+      "rating": "3"
+    },
+    {
+      "id": "5205",
+      "title": "LastProduct",
+      "price": "35",
+      "image": "https://preview.colorlib.com/theme/coloshop/images/product_1.png",
+      "category_id": "3",
+      "discount": "",
+      "status": "",
+      "rating": "2"
+    },
+    {
+      "id": "22ca",
+      "title": "asda",
+      "price": "213",
+      "image": " ",
+      "category_id": "2",
+      "discount": "",
+      "status": "",
+      "rating": "4.1"
+    },
+    {
+      "id": "bb4e",
+      "title": "das",
+      "price": "21",
+      "image": "sad",
+      "category_id": "2",
+      "discount": "16",
+      "status": "",
+      "rating": "12"
     }
   ],
   "categories": [

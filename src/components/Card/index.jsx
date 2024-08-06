@@ -1,11 +1,15 @@
 /* eslint-disable react/prop-types */
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { getUser, patchUser } from "../../api/users";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getOneUserRedux,
+  patchUserRedux,
+} from "../../redux/actions/userActions";
 
 import "./index.scss";
-import { useNavigate } from "react-router-dom";
 
 export const CustomCardTopSideInfo = ({
   text,
@@ -16,13 +20,18 @@ export const CustomCardTopSideInfo = ({
   user,
   setUser,
 }) => {
-  const fetchUser = async () => {
-    const userData = await getUser(1);
-    setUser(userData);
-  };
+  const dispatch = useDispatch();
+  const { user: fetchedUser } = useSelector((state) => state.users);
+
   useEffect(() => {
-    fetchUser();
-  }, []);
+    dispatch(getOneUserRedux(1));
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (fetchedUser) {
+      setUser(fetchedUser);
+    }
+  }, [fetchedUser, setUser]);
 
   const handleAddToFavorites = async (e) => {
     e.stopPropagation();
@@ -32,9 +41,9 @@ export const CustomCardTopSideInfo = ({
         : [...user.favorites, productId];
 
       const updatedUser = { favorites: updatedFavorites };
-      await patchUser(user.id, updatedUser);
+      dispatch(patchUserRedux({ userId: user.id, data: updatedUser }));
 
-      await fetchUser();
+      dispatch(getOneUserRedux(user.id));
     } else {
       alert("User not found");
     }
@@ -88,39 +97,30 @@ const CustomCard = ({
   user,
   setUser,
   showBasket = true,
+  basket,
 }) => {
   const navigate = useNavigate();
-
-  const fetchUser = async () => {
-    const userData = await getUser(1);
-    setUser(userData);
-  };
-
-  useEffect(() => {
-    fetchUser();
-  }, []);
+  const dispatch = useDispatch();
 
   const handleAddToBasket = async (e) => {
     e.stopPropagation();
 
     if (user) {
-      const productInBasket = user.basket.find(
-        (item) => item.productId === productId
+      const updatedBasket = basket.map((item) =>
+        item.productId === productId ? { ...item, count: item.count + 1 } : item
       );
 
-      if (productInBasket) {
-        productInBasket.count += 1;
-      } else {
-        user.basket.push({
+      if (!updatedBasket.some((item) => item.productId === productId)) {
+        updatedBasket.push({
           productId: productId,
           count: 1,
         });
       }
 
-      setUser({ ...user });
+      const updatedUser = { ...user, basket: updatedBasket };
 
-      await patchUser(user.id, user);
-      await fetchUser();
+      dispatch(patchUserRedux({ userId: user.id, data: updatedUser }));
+      dispatch(getOneUserRedux(user.id));
     } else {
       alert("User not found");
     }

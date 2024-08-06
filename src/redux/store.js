@@ -7,11 +7,13 @@ import {
 import {
     categoryReducer
 } from "./reducers/categoryReducer";
+import { userReducer } from "./reducers/userReducer";
 
 
 export const store = configureStore({
     reducer: {
         products: productReducer,
-        categories: categoryReducer
+        categories: categoryReducer,
+        users: userReducer
     }
-});
+}); 

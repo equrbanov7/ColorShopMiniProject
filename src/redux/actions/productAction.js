@@ -24,6 +24,7 @@ export const getProductsRedux = createAsyncThunk(
         }
     }
 );
+
 export const getOneProductRedux = createAsyncThunk(
     "product/getOneProduct",
     async (id, {
@@ -38,23 +39,20 @@ export const getOneProductRedux = createAsyncThunk(
     }
 );
 
-
-  
-
-
-// export const getOneProduct = createAsyncThunk(
-//   "product/getOneProduct",
-//   async (id, { rejectWithValue }) => {
-//     try {
-
-
-//       const res = await instance.get(
-//         `/products?populate=*&[filters][id][$eq]=${id} `
-//       );
-
-//       return res.data;
-//     } catch (error) {
-//       rejectWithValue(error);
-//     }
-//   }
-// );
+export const postOneProductRedux = createAsyncThunk(
+    "product/postOneProduct",
+    async (data, {
+        rejectWithValue
+    }) => {
+        try {
+            const res = await instance.post(`/${ENUMS.products}`, data);
+            return res.data;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
+// export const postNewUser= async (data) => {
+//     const res = await instance.post(`/${ENUMS.users}`, data);
+//     return res.data;
+// };
